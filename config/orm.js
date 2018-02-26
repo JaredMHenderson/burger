@@ -21,7 +21,7 @@ function objToSql(ob) {
         if (Object.hasOwnProperty.call(ob, key)) {
             // if string with spaces, add quotations (Lana Del Grey => "Lana Del Grey")
             if (typeof value === "string" && value.indexOf(" ") >= 0) {
-                value = """ + value + """;
+                value = " + value + ";
             }
             // e.g. {name: "Lana Del Grey"} => ["name="Lana Del Grey""]
             // e.g. {sleepy: true} => ["sleepy=true"]
@@ -37,10 +37,10 @@ function objToSql(ob) {
 
 const orm = {
     selectAll: function(tableInput, cb) {
-        let queryString = 'SELECT * FROM' + tableInput + ';';
+        let queryString = 'SELECT * FROM ' + tableInput + ';';
         connection.query(queryString, (err, results) => {
             if(err){ 
-                throw error;
+                throw err;
             }
             cb(results);
         });
@@ -67,7 +67,7 @@ const orm = {
     },
 
     updateOne: function(table, objColVals, condition, cb) {
-        let queryString = 'UPDATE ' = table;
+        let queryString = 'UPDATE ' + table;
 
         queryString += ' SET ';
         queryString += ojbToSql(objColVals);
